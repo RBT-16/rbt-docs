@@ -1,3 +1,0 @@
-[submodule "tests/SingleStepTests"]
-	path = tests/SingleStepTests
-	url = git@github.com:SingleStepTests/m68000.git

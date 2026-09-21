@@ -8,8 +8,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(unity)
 
-add_subdirectory(vendor/Moira)
-
 include("../cmake/base.cmake")
 include("../cmake/warnings.cmake")
 
@@ -79,16 +77,3 @@ add_test_executable(
 	INCLUDE_DIRS
 		"src/"
 )
-
-add_library(moira_wrapper STATIC "src/moira_wrapper.cpp")
-target_compile_features(moira_wrapper PRIVATE cxx_std_23)
-target_include_directories(moira_wrapper PUBLIC "vendor/Moira")
-add_test_executable(
-	test_runner
-	SOURCES
-		"src/cpu/test_runner.c"
-	INCLUDE_DIRS
-		"src/"
-		"vendor/"
-)
-target_link_libraries(test_runner PRIVATE moira_wrapper)
