@@ -6,9 +6,9 @@
 - VRAM: Dedicated 128KB. (Not accessible directly by the main CPU)
 - Interrupts: H-Blank and V-Blank, with line counting
 - Blitter: Fast memory operations and FX drawing.
-    - Copy/Move chunks of data from: RAM->VRAM, VRAM->VRAM
-    - Primitive drawing: Triangles, Quads and Polygons
-    - Polygons can have flat color or a texture
+  - Copy/Move chunks of data from: RAM->VRAM, VRAM->VRAM
+  - Primitive drawing: Triangles, Quads and Polygons
+  - Polygons can have flat color or a texture
 - SPI: Manages microSD card communication
 
 ---
@@ -149,8 +149,8 @@ Word 3:
 - 4 Layers: can be static or affine transformed
 - 3 Modes: Each mode has different capabilities
 - Tiled modes:
-    - Each layer is formed by Tile Attribute Objects
-        - Can be scrolled
+  - Each layer is formed by Tile Attribute Objects
+    - Can be scrolled
 
 | Mode | Layers   |   Palette    |  Virtual Size   | Capabilities             |
 | :--: | -------- | :----------: | :-------------: | ------------------------ |
@@ -189,24 +189,24 @@ Word 0:
 ### Bitmap Mode
 
 - 3 possible canvas resolutions:
-    1. 320x200 2/4/8bpp
-    2. 640x200 2/4bpp
-    3. 640x400 2bpp
+  1. 320x200 2/4/8bpp
+  2. 640x200 2/4bpp
+  3. 640x400 2bpp
 
 - If enabled, scrolling registers values are ignored
 - Sprites cannot be used while bitmap is enabled. VDP skips sprite processing
 - Color mapping in bitmap modes:
-    - 8bpp (320x200x8):
-        - Each pixel = 8-bit value (0-255)
-        - Bits `[7:4]` = palette index (0-15)
-        - Bits `[3:0]` = color index within palette (0-15)
-        - Direct index into palette RAM at PALETTE_BASE
-    - 4bpp (320x200x4, 640x200x4):
-        - Each pixel = 4-bit value (0-15)
-        - Uses palette 0 only (first 16 colors at PALETTE_BASE)
-    - 2bpp (320x200x2, 640x200x2, 640x400x2):
-        - Each pixel = 2-bit value (0-3)
-        - Uses first 4 colors from palette 0 (PALETTE_BASE + 0x00..0x07)
+  - 8bpp (320x200x8):
+    - Each pixel = 8-bit value (0-255)
+    - Bits `[7:4]` = palette index (0-15)
+    - Bits `[3:0]` = color index within palette (0-15)
+    - Direct index into palette RAM at PALETTE_BASE
+  - 4bpp (320x200x4, 640x200x4):
+    - Each pixel = 4-bit value (0-15)
+    - Uses palette 0 only (first 16 colors at PALETTE_BASE)
+  - 2bpp (320x200x2, 640x200x2, 640x400x2):
+    - Each pixel = 2-bit value (0-3)
+    - Uses first 4 colors from palette 0 (PALETTE_BASE + 0x00..0x07)
 
 ---
 
@@ -636,5 +636,5 @@ VDP_MMIO + 0xf8 -> VDP_BUILD_H | R
 
 ---
 
-> Documentation is licensed under CC BY-SA 4.0. <br>
+> rbt-docs © 2026 by aCube is licensed under CC BY-SA 4.0.<br>
 > See https://creativecommons.org/licenses/by-sa/4.0/

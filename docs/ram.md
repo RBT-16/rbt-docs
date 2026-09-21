@@ -2,13 +2,13 @@
 
 - The RBT-16 is shipped with 256KB SRAM, but can expanded up to 4MB
 - Expansion is made by Memory Modules
-    - 4 slots total on the main board
-    - Connector: 2x30 edge connector
-    - Module size is flexible; The Main board doesn't care what's on the module,
-      only that it responds to `/CS`
-    - Present Detect (PD) pins: 3 pins on the connector, encode the size
-      in hardware (see table below)
-    - Supported module sizes: 256KB, 512KB and 1MB
+  - 4 slots total on the main board
+  - Connector: 2x30 edge connector
+  - Module size is flexible; The Main board doesn't care what's on the module,
+    only that it responds to `/CS`
+  - Present Detect (PD) pins: 3 pins on the connector, encode the size
+    in hardware (see table below)
+  - Supported module sizes: 256KB, 512KB and 1MB
 - System should refuse to boot if Slot 0 is unpopulated
 
 | PD2 | PD1 | PD0 | Size      |
@@ -201,5 +201,5 @@ IO_MMIO + 0x0f -> VERSION | R
 
 ---
 
-> Documentation is licensed under CC BY-SA 4.0. <br>
+> rbt-docs © 2026 by aCube is licensed under CC BY-SA 4.0.<br>
 > See https://creativecommons.org/licenses/by-sa/4.0/

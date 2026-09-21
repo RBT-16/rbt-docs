@@ -105,5 +105,5 @@ REFS:
 
 ---
 
-> Documentation is licensed under CC BY-SA 4.0. <br>
+> rbt-docs © 2026 by aCube is licensed under CC BY-SA 4.0.<br>
 > See https://creativecommons.org/licenses/by-sa/4.0/
