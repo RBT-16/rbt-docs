@@ -12,12 +12,11 @@ Commodore and IBM.<br>
 
 ## Hardware Specifications
 
-- CPU: Motorola 68000 at ~8/12MHz
+- CPU: Motorola 68000 at ~12MHz
 - VDP: Tang Primer 20K. Codename - Killy
 - APU: 2x YM2149 + DAC
 - ROM: 256KB Flash; Stores BIOS and Kernel
-- RAM: Shipped with 256KB of Static RAM; Has four RAM expansion modules,
-  with up to 4MB max RAM
+- RAM: Shipped with 128KB of Internal Work RAM
 - RTC: DS1307
 
 > CPU can be boosted by software up to 12MHz
@@ -37,7 +36,7 @@ Commodore and IBM.<br>
 - 1 x RCA Audio Jack
 - 1 x 3.5mm Audio Jack
 - 1 x microSD Card Slot
-- 2 x SNES Controllers
+- 2 x SNES Controllers (Up to 4 controllers can be connected)
 - 2 x PS/2 Mouse and Keyboard Ports
 - 4 x 2x50 Card Edge Connectors/Expansion Card (Parallel Bus)
 
@@ -47,14 +46,8 @@ Commodore and IBM.<br>
 
 <!--
 NOTES:
-	(uotlaf) - CPU: Possibility to change CPU clock via software using
-custom wiring.
-	(YAN) - CPU: Test clock frequencies stability.
 	(aCube) - ROM: Should the ROM be updated from the microSD card? It will
 require a read-only bootloader section.
-	(YAN) - APU: Use the YM2413 OPLL FM chip as an alternative audio chip
-	(aCube) - SD Card: SPI controller should reside inside the VDP. This
-simplify implementation.
 	(aCube) - Add 525-line interlaced NTSC/PAL-M mode for CRT TV compatibility.
 reference: https://github.com/fvdhoef/vera-module
 
@@ -64,7 +57,7 @@ REFS:
 		- Tang Primer 20K -> VDP (Killy)
 		- AD724 -> RGB to Composite/S-Video encoder
 		Connectors:
-			- HD-15 -> VGA Connector
+			- Female DE-15 Jack -> VGA Connector
 			- Mini-DIN 4-pin -> S-Video Connector
 			- RCA -> Composite Jack
 		NOTES:
@@ -81,18 +74,18 @@ REFS:
 		- 16MHz crystal oscillator -> Controller Clock
 	SRAM:
 		- AS6C4008-55PCN -> 512Kx8 = 512KB
-		- AS6C1008-55PCN -> 128Kx8 = 128K
+		- AS6C1008-55PCN -> 128Kx8 = 128KB
+    - AS6C6264-55PCN -> 64Kx8  = 64KB
 	ROM:
 		- SST39SF010A -> Flash 128Kx8 = 128KB
 		- SST39SF040  -> Flash 512Kx8 = 512KB
 	ICs:
 		- 74HC138 -> Decoder
 		- 74HC139 -> Decoder
-		- 74HCT244 -> one-way 8-bit buffer, 5V |-> 3.3V
-		- 74HCT245 -> bidirectional 8-bit buffer, 5V <-> 3.3V
+		- 74LVC244 -> one-way 8-bit buffer, 5V |-> 3.3V
+		- 74LVC245 -> bidirectional 8-bit buffer, 5V <-> 3.3V
 	PINs:
-		- 2x50 Card Edge Connectors
-		- 2x30 Card Edge Connectors
+		- 2x50 (2.53mm) Card Edge Connectors
 	RTC:
 		- DS3231 | DS1307 -> I2C, battery-backed, SQW output
 		- warn: Remove 200ohms charging resistor if using CR2032 battery
