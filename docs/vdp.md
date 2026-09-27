@@ -216,7 +216,7 @@ Word 0:
 - Maximum of 32 unique entries
 - Size per matrix: 16-bits x 4 -> 64-bits = 8 bytes
 
-![](https://latex.codecogs.com/svg.image?%7B%5Ccolor%7BGray%7D%5Cbegin%7Bbmatrix%7DX_%7Bscreen%7D%5C%5CY_%7Bscreen%7D%5C%5C%5Cend%7Bbmatrix%7D%3D%5Cbegin%7Bbmatrix%7Da%26b%5C%5Cc%26d%5C%5C%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7Dx%20-%20O_X%5C%5Cy%20-O_Y%5C%5C%5Cend%7Bbmatrix%7D%7D%0A "Affine Formula")
+![matrix](https://latex.codecogs.com/svg.image?%7B%5Ccolor%7BGray%7D%5Cbegin%7Bbmatrix%7DX_%7Bscreen%7D%5C%5CY_%7Bscreen%7D%5C%5C%5Cend%7Bbmatrix%7D%3D%5Cbegin%7Bbmatrix%7Da%26b%5C%5Cc%26d%5C%5C%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7Dx%20-%20O_X%5C%5Cy%20-O_Y%5C%5C%5Cend%7Bbmatrix%7D%7D%0A "Affine Formula")
 
 | Field | Notes                |
 | :---: | -------------------- |
@@ -233,7 +233,7 @@ $\left[O_X \; O_Y \right] \rightarrow \text{Object's origin position}$
 
 ## VDP MMIO Registers
 
-> VDP_MMIO: 0xfb'0000
+> VDP_MMIO: 0x04'0000
 
 ```asm
 ;=========================
@@ -249,7 +249,7 @@ VDP_MMIO + 0x00 -> VDP_CTRL | R/W
     [10:10] V - VB_IRQ_E -> V-Blank interrupt enable
 	[11:11] B - BLT_IRQ_E -> Blitter interrupt enable
 
-VDP_MMIO + 0x02 -> VDP_STATUS | R
+VDP_MMIO + 0x02 -> VDP_STATUS | RO
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     .  .  .  .  b  v  h  L  L  L  L  L  L  L  L  L
 
@@ -283,13 +283,13 @@ VDP_MMIO + 0x06 -> VDP_BACKDROP | R/W
 ;=============
 ; VRAM access
 ;=============
-VDP_MMIO + 0x10 -> VDP_VRAM_ADDR_L | W/R
+VDP_MMIO + 0x10 -> VDP_VRAM_ADDR_L | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     a  a  a  a  a  a  a  a  a  a  a  a  a  a  a  a
 
     [15:0] a - ADDR_LOW -> VRAM address low word (VRAM_ADDR[15:0])
 
-VDP_MMIO + 0x12 -> VDP_VRAM_ADDR_H | W/R
+VDP_MMIO + 0x12 -> VDP_VRAM_ADDR_H | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     D  s  .  .  i  i  i  i  .  .  .  .  .  .  .  a
 
@@ -331,7 +331,7 @@ VDP_MMIO + 0x14 -> VDP_DATA | R/W
 ; Memory mapping
 ;================
 VDP_MMIO + 0x20 -> SPR_TILE_BASE | R/W
-VDP_MMIO + 0x22 -> BG_TILE_BASE | R/W
+VDP_MMIO + 0x22 -> BG_TILE_BASE  | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     .  .  .  .  .  .  .  .  .  .  a  a  a  a  a  a
 
@@ -441,31 +441,31 @@ VDP_MMIO + 0x60 -> BMP_CTRL | R/W
 ;================
 ; Blitter Engine
 ;================
-VDP_MMIO + 0x80 -> BLT_SRC_L | W
+VDP_MMIO + 0x80 -> BLT_SRC_L | WR
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     a  a  a  a  a  a  a  a  a  a  a  a  a  a  a  a
 
     [15:0] a - BLT_SRC_LOW -> Source address low word
 
-VDP_MMIO + 0x82 -> BLT_SRC_H | W
+VDP_MMIO + 0x82 -> BLT_SRC_H | WR
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     .  .  .  .  .  .  .  .  a  a  a  a  a  a  a  a
 
     [7:0] a - BLT_SRC_HI -> Source address high byte
 
-VDP_MMIO + 0x84 -> BLT_DST_L | W
+VDP_MMIO + 0x84 -> BLT_DST_L | WR
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     d  d  d  d  d  d  d  d  d  d  d  d  d  d  d  d
 
     [15:0] d - BLT_DEST_LOW -> Destination address low word
 
-VDP_MMIO + 0x86 -> BLT_DST_H | W
+VDP_MMIO + 0x86 -> BLT_DST_H | WR
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  d
 
     [0:0] d - BLT_DEST_HI -> VRAM destination address high bit
 
-VDP_MMIO + 0x88 -> BLT_SIZE | W
+VDP_MMIO + 0x88 -> BLT_SIZE | WR
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     h  h  h  h  h  h  h  h  w  w  w  w  w  w  w  w
 
@@ -488,7 +488,7 @@ VDP_MMIO + 0x8a -> BLT_CTRL | R/W
 ; Note: if transfer type is VRAM->VRAM, only the first 17-bits
 ; from BLT_SRC address are used: BLT_SRC[16:0], the upper are ignored
 
-VDP_MMIO + 0x8c -> BLT_STATUS | R
+VDP_MMIO + 0x8c -> BLT_STATUS | RO
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     D  B  E  I  .  .  .  .  .  .  .  .  .  .  .  .
 
@@ -606,10 +606,10 @@ VDP_MMIO + 0xe2 -> SPI_DATA | R/W
 ;=========================
 ; Version and Identifiers
 ;=========================
-VDP_MMIO + 0xf0 -> VDP_ID0 | R ; 0x47 ('G')
-VDP_MMIO + 0xf1 -> VDP_ID1 | R ; 0x42 ('B')
-VDP_MMIO + 0xf2 -> VDP_ID2 | R ; 0x45 ('E')
-VDP_MMIO + 0xf3 -> VDP_ID3 | R ; 0x0a ('\n')
+VDP_MMIO + 0xf0 -> VDP_ID0 | RO ; 0x47 ('G')
+VDP_MMIO + 0xf1 -> VDP_ID1 | RO ; 0x42 ('B')
+VDP_MMIO + 0xf2 -> VDP_ID2 | RO ; 0x45 ('E')
+VDP_MMIO + 0xf3 -> VDP_ID3 | RO ; 0x0a ('\n')
     7  6  5  4  3  2  1  0
     i  i  i  i  i  i  i  i
 
@@ -619,15 +619,15 @@ VDP_MMIO + 0xf3 -> VDP_ID3 | R ; 0x0a ('\n')
 
 ; GBE stands for: 'Gravitational Beam Emitter' from Blame!
 
-VDP_MMIO + 0xf4 -> VDP_REV0 | R
+VDP_MMIO + 0xf4 -> VDP_REV0 | RO
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     N  N  N  N  N  N  N  N  m  m  m  m  m  m  m  m
 
     [7:0]  m - VER_MAJOR -> Major revision
     [15:8] N - VER_MINOR -> Minor revision
 
-VDP_MMIO + 0xf6 -> VDP_BUILD_L | R
-VDP_MMIO + 0xf8 -> VDP_BUILD_H | R
+VDP_MMIO + 0xf6 -> VDP_BUILD_L | RO
+VDP_MMIO + 0xf8 -> VDP_BUILD_H | RO
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     B  B  B  B  B  B  B  B  B  B  B  B  B  B  B  B
 
