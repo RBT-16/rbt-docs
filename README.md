@@ -1,11 +1,11 @@
 # Overview
 
-&nbsp;&nbsp;&nbsp;&nbsp;A micro-computer inspired by the Atari ST and Amiga 500.
+&nbsp;&nbsp;&nbsp;&nbsp;A microcomputer inspired by the Atari ST and Amiga 500.
 
-&nbsp;&nbsp;&nbsp;&nbsp;The RBT-16 is a micro-computer designed to be an Atari STe and Amiga 500
+&nbsp;&nbsp;&nbsp;&nbsp;The RBT-16 is a microcomputer designed to be an Atari STe and Amiga 500
 successor, not limited by their technology and history, but by what we have
 and know today. The RBT-16 is a middle ground between 3 worlds: Atari,
-Commodore and IBM.<br>
+Commodore, and IBM.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Our design goal is to have something fun and interesting to play and use.
 
 ---
@@ -26,7 +26,8 @@ Commodore and IBM.<br>
 > ROM0 -> /UDS chip (D8-D15, even addresses) <br>
 > ROM1 -> /LDS chip (D0-D7, odd addresses)
 
-- [RAM Subsystem](docs/ram.md)
+- [Memory](docs/memory.md)
+- [Expansion](docs/expansion.md)
 
 ### IO Connectors:
 
@@ -40,7 +41,7 @@ Commodore and IBM.<br>
 - 2 x PS/2 Mouse and Keyboard Ports
 - 4 x 2x50 Card Edge Connectors/Expansion Card (Parallel Bus)
 
-### Chips references
+### Chips References
 
 - [Video Display Processor](docs/vdp.md)
 

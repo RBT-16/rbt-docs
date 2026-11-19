@@ -2,53 +2,51 @@
 
 ## Overview
 
-- The main board is shipped with 128KB of Static RAM, which can be expanded by
+- The mainboard is shipped with 128KB of Static RAM, which can be expanded by
   the user.
 - At boot the ROM is overlaid at address `0x00'0000`.
 
 ## Main Memory Map
 
-|    Address Range    | Size  | Description                |
-| :-----------------: | :---: | -------------------------- |
-| 0x00'0000-0x01'ffff | 128KB | Internal Work RAM          |
-| 0x02'0000-0x03'ffff | 128KB | Internal Work RAM mirror   |
-| 0x04'0000-0x04'ffff | 64KB  | MMIO (see MMIO Memory Map) |
-| 0x05'0000-0x05'ffff | 64KB  | MMIO mirror                |
-| 0x06'0000-0x06'ffff | 64KB  | MMIO mirror                |
-| 0x07'0000-0x07'ffff | 64KB  | MMIO mirror                |
-| 0x08'0000-0x0b'ffff | 256KB | Kernel ROM (BIOS)          |
-| 0x0c'0000-0x0f'ffff | 256KB | Kernel ROM mirror          |
-| 0x10'0000-0x7f'ffff |  7MB  | Reserved                   |
-| 0x80'0000-0xbf'ffff |  4MB  | External Work RAM          |
-| 0xc0'0000-0xff'ffff |  4MB  | Reserved                   |
+|     Address Range     | Size  | Description                |
+| :-------------------: | :---: | -------------------------- |
+| `0x00'0000-0x01'ffff` | 128KB | Internal Work RAM          |
+| `0x02'0000-0x03'ffff` | 128KB | Internal Work RAM mirror   |
+| `0x04'0000-0x04'ffff` | 64KB  | MMIO (see MMIO Memory Map) |
+| `0x05'0000-0x05'ffff` | 64KB  | MMIO mirror                |
+| `0x06'0000-0x06'ffff` | 64KB  | MMIO mirror                |
+| `0x07'0000-0x07'ffff` | 64KB  | MMIO mirror                |
+| `0x08'0000-0x0b'ffff` | 256KB | Kernel ROM (BIOS)          |
+| `0x0c'0000-0x0f'ffff` | 256KB | Kernel ROM mirror          |
+| `0x10'0000-0x7f'ffff` |  7MB  | Reserved                   |
+| `0x80'0000-0xbf'ffff` |  4MB  | External Work RAM          |
+| `0xc0'0000-0xff'ffff` |  4MB  | Reserved                   |
 
 > Unallocated regions should trigger /BERR on access.
 
 > Memory Map is subject to changes.
 
-### Internal Work RAM layout
+### Internal Work RAM Layout
 
-|    Address Range    | Size | Description             |
-| :-----------------: | :--: | ----------------------- |
-| 0x00'0000-0x00'03ff | 1KB  | Exception Vector Table  |
-| 0x00'0400-0x00'0fff | 3KB  | BIOS Memory / Boot Info |
-| 0x00'1000-0x00'7fff | 28KB | Kernel Heap             |
-| 0x00'8000-0x01'ffff | 96KB | User Heap               |
+|     Address Range     | Size | Description             |
+| :-------------------: | :--: | ----------------------- |
+| `0x00'0000-0x00'03ff` | 1KB  | Exception Vector Table  |
+| `0x00'0400-0x00'0fff` | 3KB  | BIOS Memory / Boot Info |
+| `0x00'1000-0x00'7fff` | 28KB | Kernel Heap             |
+| `0x00'8000-0x01'ffff` | 96KB | User Heap               |
 
 ### MMIO Memory Map
 
-| Start Address | End Address | Description       |
-| :-----------: | :---------: | ----------------- |
-|   0x04'0000   |  0x04'00ff  | VDP Registers     |
-|   0x04'0100   |  0x04'01ff  | System/IO Control |
-|   0x04'0200   |  0x04'7fff  | Reserved (/DTACK) |
-|   0x04'8000   |  0x04'8fff  | Card MMIO 0       |
-|   0x04'9000   |  0x04'9fff  | Card MMIO 1       |
-|   0x04'a000   |  0x04'afff  | Card MMIO 2       |
-|   0x04'b000   |  0x04'bfff  | Card MMIO 3       |
-|   0x04'c000   |  0x04'ffff  | Reserved (/DTACK) |
-
-> Each MMIO region is 256-bytes wide
+| Start Address | End Address | Description         |
+| :-----------: | :---------: | ------------------- |
+|  `0x04'0000`  | `0x04'00ff` | VDP Registers       |
+|  `0x04'0100`  | `0x04'01ff` | System/IO Control   |
+|  `0x04'0200`  | `0x04'7fff` | Reserved (`/DTACK`) |
+|  `0x04'8000`  | `0x04'8fff` | Card MMIO 0         |
+|  `0x04'9000`  | `0x04'9fff` | Card MMIO 1         |
+|  `0x04'a000`  | `0x04'afff` | Card MMIO 2         |
+|  `0x04'b000`  | `0x04'bfff` | Card MMIO 3         |
+|  `0x04'c000`  | `0x04'ffff` | Reserved (`/DTACK`) |
 
 #### MMIO - VDP Registers
 

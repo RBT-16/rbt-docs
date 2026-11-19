@@ -20,7 +20,7 @@ drive the bus).
 - Address range: `0x80'0000 - 0xbf'ffff` (4MB), see Memory Map.
 - Size is reported by 3 Present-Detect pins. The slot mirrors a smaller
   module across the full 4MB window (e.g. a populated 64MB mirrors 64 times
-  to fille the range).
+  to fill the range).
 
 | Group          | Signals                                |
 | :------------- | :------------------------------------- |
@@ -32,7 +32,7 @@ drive the bus).
 | Slot Control   | `/CS`                                  |
 | Power          | `+3.3V`, `+5V`, `+12V`, `GND`          |
 
-### Present-Detect size encoding
+### Present-Detect Size Encoding
 
 ```asm
 PD[2:0] -> Module Size
@@ -62,13 +62,13 @@ PD[2:0] -> Module Size
 | Audio             | `AUDIO_MIX_IN`, `AUDIO_MIX_OUT`        | Shared (analog)  |
 | Power             | `+3.3V`, `+5V`, `+12V`, `GND`          |      Shared      |
 
-- `/CS` selects this slot's always present `4KB` control window in MMIO.
-- `/IRQn` triggers a interrupt request into the central priority encoder
+- `/CS` selects this slot's always present `256B` control window in MMIO.
+- `/IRQn` triggers an interrupt request into the central priority encoder
   (fixed priority: Slot 0 highest -> Slot 3 lowest). To trigger an interrupt,
-  the line should be held low until `/IRQACK` asserts low for acknowledgement.
+  the line should be held low until `/IRQACK` asserts low for acknowledgment.
   The interrupts `4`, `5`, `6` and `7` are reserved by the mainboard system, the
   card cannot trigger those interrupts.
-- `AUDIO_MIX_IN/OUT` is a shared analogic summing bus, a card can inject and
+- `AUDIO_MIX_IN/OUT` is a shared analog summing bus, a card can inject and
   extract audio through this tap.
 
 > Every IO slot carries the same 100 pins. Each card decides which pins to use.

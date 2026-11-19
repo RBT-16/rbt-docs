@@ -1,0 +1,7 @@
+MMIO
+RBT
+SPI
+microSD
+nbsp
+x30
+x50
