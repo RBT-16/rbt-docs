@@ -1,4 +1,4 @@
-# Video: codename - Killy
+# Video: Codename - Killy
 
 - Output: VGA-compatible
 - Chip: FPGA
@@ -7,7 +7,7 @@
 - Interrupts: H-Blank and V-Blank, with line counting
 - Blitter: Fast memory operations and FX drawing.
   - Copy/Move chunks of data from: RAM->VRAM, VRAM->VRAM
-  - Primitive drawing: Triangles, Quads and Polygons
+  - Primitive drawing: Triangles, Quads, and Polygons
   - Polygons can have flat color or a texture
 - SPI: Manages microSD card communication
 
@@ -18,8 +18,8 @@
 Killy supports three video output modes:
 
 - **VGA**: Analog signal compatible with VGA.
-- **S-Video**: Analog Y/C output via AD724 encoder.
-- **Composite**: Analog Composite output via AD724 encoder.
+- **S-Video**: Analog Y/C output via `AD724` encoder.
+- **Composite**: Analog Composite output via `AD724` encoder.
 
 > VGA, S-video and Composite are always simultaneously active in RGB
 > parallel mode
@@ -27,19 +27,19 @@ Killy supports three video output modes:
 ## Colors and Palettes
 
 - 16 palettes of 16 colors
-- Background, Sprites and Bitmap all share the same palette base
+- Background, Sprites, and Bitmap all share the same palette base
 - 12-bit RGB colors; 4096 possible combinations
 - Color `#0000` is not rendered; Transparent color
 
 ```asm
 ; Palette Entry Format
 Word 0:
-	F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
-	.  .  .  .  R  R  R  R  G  G  G  G  B  B  B  B
+    F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
+    .  .  .  .  R  R  R  R  G  G  G  G  B  B  B  B
 
-	[3:0]  B - blue component
-	[7:4]  G - green component
-	[11:8] R - red component
+    [3:0]  B - blue component
+    [7:4]  G - green component
+    [11:8] R - red component
 ```
 
 ---
@@ -54,7 +54,7 @@ Word 0:
 
 ---
 
-## Sprite system
+## Sprite System
 
 - Size: 8x8 up to 64x64 pixels
 - Affine transform: Scale, Rotate, Skew
@@ -96,18 +96,18 @@ Word 3:
    [15:15] a - affine enable
 ```
 
-| Field         |   Bits   | Description                                      |
-| ------------- | :------: | ------------------------------------------------ |
-| X Position    | 10 bits  | 0-1023 horizontal; allows off-screen positioning |
-| Y Position    |  9 bits  | 0-511 vertical; allows off-screen positioning    |
-| Tile Index    | 10 bits  | Index of the first tile; Up to 1024 tiles        |
-| Palette Index |  4 bits  | Selects one of 16 palettes in VRAM               |
-| Size          | 2+2 bits | Selects sprite's width/height; HHxWW             |
-| Flip H/V      | 1+1 bits | On bit set, flips sprite horizontally/vertically |
-| Priority      |  2 bits  | Sprite Z-index relative to background layers     |
-| Visible       |  1 bit   | If set, enable sprite visibility                 |
-| Affine Index  |  5 bits  | Index of the affine matrix used                  |
-| Affine Enable |  1 bit   | If set, enable sprite to be affine transformed   |
+| Field         |   Bits   | Description                                        |
+| ------------- | :------: | -------------------------------------------------- |
+| X Position    | 10 bits  | `0-1023` horizontal; allows off-screen positioning |
+| Y Position    |  9 bits  | `0-511` vertical; allows off-screen positioning    |
+| Tile Index    | 10 bits  | Index of the first tile; Up to 1024 tiles          |
+| Palette Index |  4 bits  | Selects one of 16 palettes in VRAM                 |
+| Size          | 2+2 bits | Selects sprite's width/height; HHxWW               |
+| Flip H/V      | 1+1 bits | On bit set, flips sprite horizontally/vertically   |
+| Priority      |  2 bits  | Sprite Z-index relative to background layers       |
+| Visible       |  1 bit   | If set, enable sprite visibility                   |
+| Affine Index  |  5 bits  | Index of the affine matrix used                    |
+| Affine Enable |  1 bit   | If set, enable sprite to be affine transformed     |
 
 > OAM size: 4 words -> 8 bytes
 
@@ -144,7 +144,7 @@ Word 3:
 
 ---
 
-## Background system
+## Background System
 
 - 4 Layers: can be static or affine transformed
 - 3 Modes: Each mode has different capabilities
@@ -152,12 +152,12 @@ Word 3:
   - Each layer is formed by Tile Attribute Objects
     - Can be scrolled
 
-| Mode | Layers   |   Palette    |  Virtual Size   | Capabilities             |
-| :--: | -------- | :----------: | :-------------: | ------------------------ |
-|  00  | 4 Tiled  | `256; 16x16` |   1024x512px    | 4 static                 |
-|  01  | 4 Tiled  | `256; 16x16` |   1024x512px    | 2 static + 2 affine      |
-|  10  | 1 Bitmap |    `256`     | Up to 640x400px | 2/4/8bpp; not scrollable |
-|  11  | None     |    `xxx`     |    Disabled     | Video blank              |
+| Mode | Layers   |   Palette    |   Virtual Size    | Capabilities             |
+| :--: | -------- | :----------: | :---------------: | ------------------------ |
+|  00  | 4 Tiled  | `256; 16x16` |   `1024x512px`    | 4 static                 |
+|  01  | 4 Tiled  | `256; 16x16` |   `1024x512px`    | 2 static + 2 affine      |
+|  10  | 1 Bitmap |    `256`     | Up to `640x400px` | 2/4/8bpp; not scrollable |
+|  11  | None     |    `xxx`     |     Disabled      | Video blank              |
 
 > Mode 11 is reserved: Video Display is turned off if enabled
 
@@ -196,21 +196,21 @@ Word 0:
 - If enabled, scrolling registers values are ignored
 - Sprites cannot be used while bitmap is enabled. VDP skips sprite processing
 - Color mapping in bitmap modes:
-  - 8bpp (320x200x8):
-    - Each pixel = 8-bit value (0-255)
-    - Bits `[7:4]` = palette index (0-15)
-    - Bits `[3:0]` = color index within palette (0-15)
+  - 8bpp (`320x200x8`):
+    - Each pixel = 8-bit value (`0-255`)
+    - Bits `[7:4]` = palette index (`0-15`)
+    - Bits `[3:0]` = color index within palette (`0-15`)
     - Direct index into palette RAM at PALETTE_BASE
-  - 4bpp (320x200x4, 640x200x4):
-    - Each pixel = 4-bit value (0-15)
+  - 4bpp (`320x200x4`, `640x200x4`):
+    - Each pixel = 4-bit value (`0-15`)
     - Uses palette 0 only (first 16 colors at PALETTE_BASE)
-  - 2bpp (320x200x2, 640x200x2, 640x400x2):
-    - Each pixel = 2-bit value (0-3)
-    - Uses first 4 colors from palette 0 (PALETTE_BASE + 0x00..0x07)
+  - 2bpp (`320x200x2`, `640x200x2`, `640x400x2`):
+    - Each pixel = 2-bit value (`0-3`)
+    - Uses first 4 colors from palette 0 (`PALETTE_BASE + 0x00..0x07`)
 
 ---
 
-## Affine transform system
+## Affine Transform System
 
 - Signed 16-bit fixed-point (8.8 format)
 - Maximum of 32 unique entries
@@ -225,7 +225,7 @@ Word 0:
 |   c   | V skew / sin(theta)  |
 |   d   | V scale / cos(theta) |
 
-$\left[x   \; y   \right] \rightarrow \text{Pixel local position}$
+$\left[x \; y \right] \rightarrow \text{Pixel local position}$
 
 $\left[O_X \; O_Y \right] \rightarrow \text{Object's origin position}$
 
@@ -233,7 +233,7 @@ $\left[O_X \; O_Y \right] \rightarrow \text{Object's origin position}$
 
 ## VDP MMIO Registers
 
-> VDP_MMIO: 0x04'0000
+> VDP_MMIO: 0x0e'0000
 
 ```asm
 ;=========================
@@ -247,7 +247,7 @@ VDP_MMIO + 0x00 -> VDP_CTRL | R/W
     [8:8]   I - LINE_IRQ_E -> Line-compare interrupt enable
     [9:9]   H - HB_IRQ_E -> H-Blank interrupt enable
     [10:10] V - VB_IRQ_E -> V-Blank interrupt enable
-	[11:11] B - BLT_IRQ_E -> Blitter interrupt enable
+    [11:11] B - BLT_IRQ_E -> Blitter interrupt enable
 
 VDP_MMIO + 0x02 -> VDP_STATUS | RO
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
@@ -256,7 +256,7 @@ VDP_MMIO + 0x02 -> VDP_STATUS | RO
     [8:0]   L - CUR_LINE -> Current scanline (0-479 Visible, 0-511 Total)
     [9:9]   h - HB_INT -> Set if current IRQ is HBlank [R/W1C]
     [10:10] v - VB_INT -> Set if current IRQ is VBlank [R/W1C]
-	[11:11] b - BLT_INT -> Set if current IRQ is from Blitter [R/W1C]
+    [11:11] b - BLT_INT -> Set if current IRQ is from Blitter [R/W1C]
 
 ; Current scanline stops at 0x1ff through lines 512-524
 
@@ -265,7 +265,7 @@ VDP_MMIO + 0x04 -> VDP_SCANLINE_CMP | R/W
     l  .  .  .  .  .  .  L  L  L  L  L  L  L  L  L
 
     [8:0]   L - LINE -> Line-compare value (0-511)
-	[15:15] l - LINE_MATCH -> Line-compare match
+    [15:15] l - LINE_MATCH -> Line-compare match
 
 ; Triggers an interrupt when the current scanline matches
 
@@ -293,10 +293,10 @@ VDP_MMIO + 0x12 -> VDP_VRAM_ADDR_H | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     D  s  .  .  i  i  i  i  .  .  .  .  .  .  .  a
 
-	[0:0]   a - ADDR_HIGH -> VRAM address high bit (VRAM_ADDR[16:16])
+    [0:0]   a - ADDR_HIGH -> VRAM address high bit (VRAM_ADDR[16:16])
     [11:8]  i - INC_RATE -> Auto increment (0-15, see table below)
     [14:14] s - SIZE -> 1: word, 0: byte
-	[15:15] D - DECR -> 1: decrement, 0: increment
+    [15:15] D - DECR -> 1: decrement, 0: increment
 
 ; auto-increment table:
 ; value | increment | use case
@@ -341,7 +341,7 @@ VDP_MMIO + 0x22 -> BG_TILE_BASE  | R/W
 
 VDP_MMIO + 0x24 -> PALETTE_BASE | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
-	.  .  .  .  .  .  .  .  a  a  a  a  a  a  a  a
+    .  .  .  .  .  .  .  .  a  a  a  a  a  a  a  a
 
     [7:0] a - PAL_ADDR -> Palette base address (512-byte aligned)
 
@@ -389,12 +389,12 @@ VDP_MMIO + 0x4c -> BG3_SCROLL_X | R/W
 VDP_MMIO + 0x4e -> BG3_SCROLL_Y | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
     .  .  .  .  .  .  x  x  x  x  x  x  x  x  x  x
-	.  .  .  .  .  .  .  y  y  y  y  y  y  y  y  y
+    .  .  .  .  .  .  .  y  y  y  y  y  y  y  y  y
 
 ; BG_SCROLL_X
     [9:0] x - SCROLL_X -> Scroll X position (0-1023)
 ; BG_SCROLL_Y
-	[8:0] y - SCROLL_Y -> Scroll Y position (0-511)
+    [8:0] y - SCROLL_Y -> Scroll Y position (0-511)
 
 
 ;==========================
@@ -406,7 +406,7 @@ VDP_MMIO + 0x52 -> ABG1_CTRL | R/W
     a  .  .  .  .  .  b  b  .  .  .  A  A  A  A  A
 
     [4:0]   A - AFFINE_IDX -> Index of the affine matrix (0-31)
-	[9:8]   b - BG_SELECT -> Select background (00: BG0, 01: BG1, 10: BG2, 11: BG3)
+    [9:8]   b - BG_SELECT -> Select background (00: BG0, 01: BG1, 10: BG2, 11: BG3)
     [15:15] a - AFFINE_E -> Affine enable
 
 ; BG_SELECT selects which background will act as affine
@@ -423,7 +423,7 @@ VDP_MMIO + 0x60 -> BMP_CTRL | R/W
     .  .  .  .  .  M  M  M  .  .  a  a  a  a  a  a
 
     [5:0]  a - BMP_ADDR -> Bitmap base address (2KB aligned)
-	[10:8] M - BMP_MODE -> Bitmap Mode (0-7, see table below)
+    [10:8] M - BMP_MODE -> Bitmap Mode (0-7, see table below)
 
 ; Valid bitmap modes
 ; 000 -> 320x200x8    100 -> 640x200x2
@@ -585,22 +585,22 @@ VDP_MMIO + 0x96 -> FX_TEXTURE | R/W
 ;===================
 VDP_MMIO + 0xe0 -> SPI_CTRL | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
-	E  .  .  .  .  .  R  B  .  .  .  .  s  S  T  C
+    E  .  .  .  .  .  R  B  .  .  .  .  s  S  T  C
 
-	[0:0]   C - CS -> Chip select (1: assert, active low)
-	[1:1]   T - AUTO_TX -> When set, reading SPI_DATA auto starts new transfer
-	[2:2]   S - SLOW_CLK -> 0: Fast Clock(12.5MHz), 1: Slow Clock(~400kHz)
-	[3:3]   s - SIZE -> 0: Byte, 1: Word
-	[8:8]   B - BUSY -> If set, transfer is in progress
-	[9:9]   R - RX_READY -> If set, SPI_DATA is ready to be read
-	[15:15] E - ERR -> If set, an error occurried in last transaction
+    [0:0]   C - CS -> Chip select (1: assert, active low)
+    [1:1]   T - AUTO_TX -> When set, reading SPI_DATA auto starts new transfer
+    [2:2]   S - SLOW_CLK -> 0: Fast Clock(12.5MHz), 1: Slow Clock(~400kHz)
+    [3:3]   s - SIZE -> 0: Byte, 1: Word
+    [8:8]   B - BUSY -> If set, transfer is in progress
+    [9:9]   R - RX_READY -> If set, SPI_DATA is ready to be read
+    [15:15] E - ERR -> If set, an error occurried in last transaction
 
 VDP_MMIO + 0xe2 -> SPI_DATA | R/W
     F  E  D  C  B  A  9  8  7  6  5  4  3  2  1  0
-	d  d  d  d  d  d  d  d  D  D  D  D  D  D  D  D
+    d  d  d  d  d  d  d  d  D  D  D  D  D  D  D  D
 
-	[7:0]  D - DATA_LO -> Data port
-	[15:8] d - DATA_HI -> Data port
+    [7:0]  D - DATA_LO -> Data port
+    [15:8] d - DATA_HI -> Data port
 
 
 ;=========================

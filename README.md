@@ -16,7 +16,7 @@ Commodore, and IBM.<br>
 - VDP: Tang Primer 20K. Codename - Killy
 - APU: 2x YM2149 + DAC
 - ROM: 256KB Flash; Stores BIOS and Kernel
-- RAM: Shipped with 128KB of Internal Work RAM
+- RAM: Shipped with 256KB of System RAM
 - RTC: DS1307
 
 > CPU can be boosted by software up to 12MHz
@@ -74,9 +74,9 @@ REFS:
 		- ATmega32A | ATmega324P -> IO Controller
 		- 16MHz crystal oscillator -> Controller Clock
 	SRAM:
-		- AS6C4008-55PCN -> 512Kx8 = 512KB
-		- AS6C1008-55PCN -> 128Kx8 = 128KB
     - AS6C6264-55PCN -> 64Kx8  = 64KB
+    - AS6C1008-55PCN -> 128Kx8 = 128KB
+		- AS6C4008-55PCN -> 512Kx8 = 512KB
 	ROM:
 		- SST39SF010A -> Flash 128Kx8 = 128KB
 		- SST39SF040  -> Flash 512Kx8 = 512KB

@@ -2,9 +2,9 @@
 
 ## Overview
 
-- The mainboard is shipped with 128KB of Static RAM, which can be expanded by
+- The mainboard is shipped with 256KB of Static RAM, which can be expanded by
   the user.
-- At boot the ROM is overlaid at address `0x00'0000`.
+- At boot the entire ROM is overlaid at address `0x00'0000`.
 
 ## Main Memory Map
 
